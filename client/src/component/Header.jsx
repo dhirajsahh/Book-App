@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { logo } from "../utlis/Constant";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   function handleSubmit(e) {
     e.preventDefault();
   }
@@ -32,10 +34,18 @@ const Header = () => {
                 About
               </li>
             </Link>
-            <Link to="/sign-up">
-              <li className="hidden sm:inline text-slate-700 hover:underline">
-                Signup
-              </li>
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  src={currentUser.avatar}
+                  alt="profilePicture"
+                  className="h-7 w-7 rounded-full object-cover"
+                ></img>
+              ) : (
+                <li className="hidden sm:inline text-slate-700 hover:underline">
+                  Sign in
+                </li>
+              )}
             </Link>
           </ul>
         </div>
