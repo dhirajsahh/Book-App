@@ -4,12 +4,21 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+import { connectcloudinary } from "./config/connectCloudinary.js";
 dotenv.config();
 const port = process.env.PORT;
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 connectdb();
+connectcloudinary();
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
