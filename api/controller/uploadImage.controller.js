@@ -20,7 +20,7 @@ export const uploadImage = async (req, res) => {
       });
     }
     const response = await uploadFileToCloudinary(image, "learning documents");
-    return res.status(200).json(response);
+    return res.status(200).json(response.secure_url);
   } catch (error) {
     console.log(error);
   }
