@@ -1,0 +1,75 @@
+import User from "../models/user.model.js";
+import bcryptjs from "bcryptjs";
+import { errorHandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
+export const signup = async (req, res, next) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "All field are required",
+    });
+  }
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({
+      success: false,
+      message: "You are existing user sign in",
+    });
+  }
+  const hashedPassword = bcryptjs.hashSync(password, 10);
+
+  try {
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
+    newUser.password = undefined;
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json(newUser);
+  } catch (error) {
+    next(error);
+  }
+};
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "All field are required",
+    });
+  }
+  try {
+    let validUser = await User.findOne({ email });
+    if (!validUser) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const validPassword = await bcryptjs.compare(password, validUser.password);
+    if (!validPassword) {
+      return next(errorHandler(401, "Incorrect Password"));
+    }
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    validUser.password = undefined;
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json(validUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const signOut = async (req, res, next) => {
+  try {
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json("User has been logged Out");
+  } catch (error) {
+    next(error);
+  }
+};
