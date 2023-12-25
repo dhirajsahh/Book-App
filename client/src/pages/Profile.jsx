@@ -17,6 +17,7 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [file, setFile] = useState(null);
+  const [erroruploading, setErrorUploading] = useState(false);
   useEffect(() => {
     if (file) {
       handleUpload(file);
@@ -32,8 +33,13 @@ const Profile = () => {
       body: formData,
     });
     const imageUrl = await res.json();
-    setFormData({ ...formData, avatar: imageUrl });
-    setUploading(false);
+    if (imageUrl.success === false) {
+      setErrorUploading(imageUrl.message);
+    } else {
+      setFormData({ ...formData, avatar: imageUrl });
+      setUploading(false);
+      setErrorUploading(false);
+    }
   };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -122,6 +128,7 @@ const Profile = () => {
         <HandleSignout />
       </div>
       <p className="text-red-700 mt-5">{error ? error.message : ""}</p>
+      <p className="text-red-700 mt-5">{erroruploading && erroruploading}</p>
       <p className="text-green-700 mt-5">
         {updateSuccess ? "User is updated successfully" : ""}
       </p>

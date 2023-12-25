@@ -13,7 +13,6 @@ export const uploadImage = async (req, res) => {
     const supportedformat = ["jpeg", "jpg", "png"];
     const imageformat = image.name.split(".")[1].toLowerCase();
     if (!isFileTypeSupported(imageformat, supportedformat)) {
-      console.log(imageformat);
       return res.status(400).json({
         success: false,
         message: "image is not in supported format",

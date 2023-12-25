@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { checkValidData } from "../utlis/validateUser";
 import { signInStart, signInFailure, signInSuccess } from "../Redux/userSlice";
 import { useDispatch } from "react-redux";
+import OAuth from "../component/OAuth";
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const SignUp = () => {
           className="bg-slate-100 p-3 rounded-lg focus:outline-none "
           onChange={handleChange}
         />
-
+        <OAuth />
         <button
           disabled={loading}
           className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
