@@ -13,3 +13,8 @@ export const checkValidData = (username, email, password) => {
   if (!isPasswordValid) return "Password is not valid";
   return null;
 };
+
+export const checkData = (email, password) => {
+  if (!email) return "email is required";
+  if (!password) return "password is required";
+};
