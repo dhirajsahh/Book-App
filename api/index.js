@@ -6,6 +6,7 @@ import userRouter from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { connectcloudinary } from "./config/connectCloudinary.js";
+import listingRouter from "./routes/listing.route.js";
 dotenv.config();
 const port = process.env.PORT;
 const app = express();
@@ -22,6 +23,7 @@ app.use(
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
 
 app.listen(port, () => {
   console.log("app is running in port", port);

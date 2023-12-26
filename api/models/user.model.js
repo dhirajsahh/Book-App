@@ -32,7 +32,6 @@ userSchema.post("save", async function (doc) {
       subject: "Account Created",
       html: `<h1>Welcome ${doc.username}</h1>`,
     });
-    console.log(info);
   } catch (error) {
     console.log("error occured while sending the mail", error);
   }
