@@ -70,8 +70,9 @@ const CreateListing = () => {
           });
           setImageUploadError(false);
           setUploading(false);
+          setError(false);
         })
-        .catch((err) => {
+        .catch((error) => {
           setImageUploadError("Image upload failed ");
           setUploading(false);
         });
@@ -84,8 +85,9 @@ const CreateListing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.imageUrls.length < 1)
-        return setError("You must upload at least one image");
+      if (formData.imageUrls.length < 1) {
+        setError("You must upload at least one image");
+      }
       if (+formData.regularPrice < +formData.discountPrice) {
         setError("Discount price should be less than regular price");
       }
