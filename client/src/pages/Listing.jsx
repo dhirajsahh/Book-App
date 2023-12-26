@@ -44,7 +44,7 @@ const Listing = () => {
       )}
       {listing && !loading && !error && (
         <div>
-          <Carousel infiniteLoop={true} autoPlay={true}>
+          <Carousel infiniteLoop={true} autoPlay={true} showThumbs={false}>
             {listing.imageUrls.map((url) => (
               <div key={url}>
                 <img src={url} alt="Image" />
@@ -85,13 +85,8 @@ const Listing = () => {
             </p>
             <div className="flex gap-4 items-center">
               <p className="bg-red-800 w-full max-w-[200px] text-white text-center p-1 rounded-md  ">
-                {listing.type === "rent" ? "For Rent" : "For sale"}
+                For sale
               </p>
-              {listing.offer && (
-                <p className="bg-green-800 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  ${+listing.regularPrice - +listing.discountPrice}
-                </p>
-              )}
             </div>
             <p className="text-slate-800">
               <span className="font-semibold text-black">Description -{}</span>

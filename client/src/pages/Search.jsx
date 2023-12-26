@@ -22,7 +22,7 @@ const Search = () => {
     fetchlistings();
   }, [location.search]);
   return (
-    <div>
+    <div className="bg-slate-300 h-screen">
       <div>
         <h1 className="text-3xl text-center text-slate-500 border-b p-3 font-semibold">
           Listings

@@ -107,143 +107,148 @@ const CreateListing = () => {
     }
   };
   return (
-    <main className="p-3 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-semibold text-center my-7">
-        Update Listing
-      </h1>
-      <form className="flex flex-col sm:flex-row gap-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4 flex-1">
-          <input
-            type="text"
-            placeholder="Name"
-            id="name"
-            className="border rounded-lg p-3 focus:outline-none "
-            required
-            maxLength="50"
-            minLength="5"
-            onChange={handleChange}
-            value={formData.name}
-          />
-          <textarea
-            type="text"
-            placeholder="Description"
-            id="description"
-            className="border rounded-lg p-3 focus:outline-none "
-            required
-            onChange={handleChange}
-            value={formData.descritption}
-          />
-          <input
-            type="text"
-            placeholder="Address"
-            id="address"
-            className="border rounded-lg p-3 focus:outline-none "
-            required
-            onChange={handleChange}
-            value={formData.address}
-          />
-          <div className="flex gap-6 flex-wrap">
-            <div className="flex gap-2">
-              <input
-                type="checkbox"
-                id="offer"
-                className="w-5"
-                onChange={handleChange}
-                checked={formData.offer}
-              />
-              <span>Offer</span>
-            </div>
-          </div>
-          <div className="flex gap-2 items-center">
+    <div className="bg-slate-300 h-screen">
+      <main className="p-3 max-w-4xl mx-auto">
+        <h1 className="text-3xl font-semibold text-center my-7">
+          Update Listing
+        </h1>
+        <form
+          className="flex flex-col sm:flex-row gap-4"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex flex-col gap-4 flex-1">
             <input
-              className="p-3 border rounded-lg border-gray-300"
-              type="number"
-              id="regularPrice"
-              min="50"
-              max="10000"
+              type="text"
+              placeholder="Name"
+              id="name"
+              className="border rounded-lg p-3 focus:outline-none "
+              required
+              maxLength="50"
+              minLength="5"
+              onChange={handleChange}
+              value={formData.name}
+            />
+            <textarea
+              type="text"
+              placeholder="Description"
+              id="description"
+              className="border rounded-lg p-3 focus:outline-none "
               required
               onChange={handleChange}
-              value={formData.regularPrice}
+              value={formData.descritption}
             />
-            <p>Regular price</p>
-          </div>
-          {formData.offer && (
+            <input
+              type="text"
+              placeholder="Address"
+              id="address"
+              className="border rounded-lg p-3 focus:outline-none "
+              required
+              onChange={handleChange}
+              value={formData.address}
+            />
+            <div className="flex gap-6 flex-wrap">
+              <div className="flex gap-2">
+                <input
+                  type="checkbox"
+                  id="offer"
+                  className="w-5"
+                  onChange={handleChange}
+                  checked={formData.offer}
+                />
+                <span>Offer</span>
+              </div>
+            </div>
             <div className="flex gap-2 items-center">
               <input
                 className="p-3 border rounded-lg border-gray-300"
                 type="number"
-                id="discountPrice"
-                min="0"
-                max="1000"
+                id="regularPrice"
+                min="50"
+                max="10000"
                 required
                 onChange={handleChange}
-                value={formData.discountPrice}
+                value={formData.regularPrice}
               />
-              <p>Discounted price</p>
+              <p>Regular price</p>
             </div>
-          )}
-        </div>
-        <div className="flex flex-col flex-1 gap-4">
-          <p className="font-semibold">
-            Images:
-            <span className="font-normal text-gray-600 ml-2">
-              The first image will be cover (max 3)
-            </span>
-          </p>
-          <div className="flex gap-4">
-            <input
-              onChange={(e) => setFiles(e.target.files)}
-              className="p-3 border border-gray-300 rounded-lg w-full"
-              type="file"
-              id="images"
-              accept="images/*"
-              multiple
-            />
-            <button
-              disabled={uploading}
-              type="button"
-              className="p-3 text-green-700 border border-green-700 uppercase hover:shadow-lg disabled:opacity-80 rounded"
-              onClick={handleImageSubmit}
-            >
-              {uploading ? "uploading..." : "upload"}
-            </button>
-          </div>
-          <p className="text-red-700 text-sm">
-            {imageUploadError && imageUploadError}
-          </p>
-          {formData.imageUrls.length > 0 &&
-            formData.imageUrls.map((urls, index) => (
-              <div
-                key={index}
-                className="flex justify-between p-3 border items-center "
-              >
-                <img
-                  src={urls}
-                  alt="Listing image"
-                  className="w-40 h-40 object-cover rounded-lg"
+            {formData.offer && (
+              <div className="flex gap-2 items-center">
+                <input
+                  className="p-3 border rounded-lg border-gray-300"
+                  type="number"
+                  id="discountPrice"
+                  min="0"
+                  max="1000"
+                  required
+                  onChange={handleChange}
+                  value={formData.discountPrice}
                 />
-                <button
-                  className="p-3 text-red-700 uppercase hover:opacity-75 font-semibold"
-                  type="button"
-                  onClick={() => {
-                    handleRemoveImage(index);
-                  }}
-                >
-                  Delete
-                </button>
+                <p>Discounted price</p>
               </div>
-            ))}
+            )}
+          </div>
+          <div className="flex flex-col flex-1 gap-4">
+            <p className="font-semibold">
+              Images:
+              <span className="font-normal text-gray-600 ml-2">
+                The first image will be cover (max 3)
+              </span>
+            </p>
+            <div className="flex gap-4">
+              <input
+                onChange={(e) => setFiles(e.target.files)}
+                className="p-3 border border-gray-300 rounded-lg w-full"
+                type="file"
+                id="images"
+                accept="images/*"
+                multiple
+              />
+              <button
+                disabled={uploading}
+                type="button"
+                className="p-3 text-green-700 border border-green-700 uppercase hover:shadow-lg disabled:opacity-80 rounded"
+                onClick={handleImageSubmit}
+              >
+                {uploading ? "uploading..." : "upload"}
+              </button>
+            </div>
+            <p className="text-red-700 text-sm">
+              {imageUploadError && imageUploadError}
+            </p>
+            {formData.imageUrls.length > 0 &&
+              formData.imageUrls.map((urls, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between p-3 border items-center "
+                >
+                  <img
+                    src={urls}
+                    alt="Listing image"
+                    className="w-40 h-40 object-cover rounded-lg"
+                  />
+                  <button
+                    className="p-3 text-red-700 uppercase hover:opacity-75 font-semibold"
+                    type="button"
+                    onClick={() => {
+                      handleRemoveImage(index);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
 
-          <button
-            disabled={uploading || loading}
-            className="p-3 bg-slate-700 text-white rounded-lg uppercase disabled:opacity-90"
-          >
-            Update Listing
-          </button>
-          <p className="text-red-700">{error && error}</p>
-        </div>
-      </form>
-    </main>
+            <button
+              disabled={uploading || loading}
+              className="p-3 bg-slate-700 text-white rounded-lg uppercase disabled:opacity-90"
+            >
+              Update Listing
+            </button>
+            <p className="text-red-700">{error && error}</p>
+          </div>
+        </form>
+      </main>
+    </div>
   );
 };
 export default CreateListing;

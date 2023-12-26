@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import ListingItem from "../component/ListingItem";
+import Footer from "../component/Footer";
 
 const Home = () => {
   const [listing, setListing] = useState([]);
@@ -20,14 +21,14 @@ const Home = () => {
     fetchListing();
   }, []);
   return (
-    <div>
+    <div className="bg-slate-300">
       <div className="flex flex-col gap-5 max-w-6xl mx-auto pt-16 pb-7 px-3">
         <h1 className="text-slate-700 font-bold text-3xl lg:text-6xl">
           Give Old Books <span className="text-slate-500">New Homes</span>
           <br /> Shop and Sell with ease
         </h1>
         <div>
-          <p className="text-gray-400 text-md sm:text-sm">
+          <p className="text-gray-800 text-md sm:text-sm">
             Welcome to your literary haven! This is your go-to destination for
             <br /> buying and selling pre-owned books. Immerse yourself in a
             diverse collection,
@@ -43,7 +44,7 @@ const Home = () => {
         </Link>
       </div>
       <div className="max-w-6xl mx-auto">
-        <Carousel infiniteLoop={true} autoPlay={true}>
+        <Carousel infiniteLoop={true} autoPlay={true} showThumbs={false}>
           {listing &&
             listing.length > 0 &&
             listing?.map((item) => (
@@ -71,7 +72,7 @@ const Home = () => {
                 Show more Collection
               </Link>
             </div>
-            <div className="flex flex-wrap justify-around">
+            <div className="flex justify-around flex-col gap-4 sm:flex-row">
               {listing?.map((item) => (
                 <ListingItem listing={item} key={item._id} />
               ))}
@@ -79,6 +80,7 @@ const Home = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

@@ -26,9 +26,11 @@ const Header = () => {
 
   return (
     <div>
-      <header className="bg-slate-200 shadow-md">
+      <header className="bg-slate-600 shadow-md">
         <div className="flex justify-around items-center  mx-auto p-3">
-          <img src={logo} alt="logo" className="w-16 h-16 rounded-full" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-16 h-16 rounded-full" />
+          </Link>
           <form
             className="bg-slate-100 p-3 rounded-lg flex items-center"
             onSubmit={handleSubmit}
@@ -46,12 +48,12 @@ const Header = () => {
           </form>
           <ul className="flex gap-4">
             <Link to="/">
-              <li className="hidden sm:inline text-slate-700 hover:underline">
+              <li className="hidden sm:inline text-white font-semibold text-xl hover:underline">
                 Home
               </li>
             </Link>
             <Link to="/about">
-              <li className="hidden sm:inline text-slate-700 hover:underline">
+              <li className=" sm:inline text-white font-semibold text-xl hover:underline">
                 About
               </li>
             </Link>
@@ -63,7 +65,7 @@ const Header = () => {
                   className="h-7 w-7 rounded-full object-cover"
                 ></img>
               ) : (
-                <li className="hidden sm:inline text-slate-700 hover:underline">
+                <li className=" sm:inline text-white font-semibold text-xl hover:underline">
                   Sign in
                 </li>
               )}
