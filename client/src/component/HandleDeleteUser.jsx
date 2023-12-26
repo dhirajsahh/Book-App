@@ -16,7 +16,6 @@ const HandleDeleteUser = ({ currentUser }) => {
       const res = await fetch(`/api/user/delete/${id}`, {
         method: "DELETE",
       });
-      console.log(res);
       const data = await res.json();
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
