@@ -8,6 +8,7 @@ import {
 } from "../Redux/userSlice";
 import HandleDeleteUser from "../component/HandleDeleteUser";
 import HandleSignout from "../component/HandleSignout";
+import ShowListing from "../component/ShowListing";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -18,11 +19,13 @@ const Profile = () => {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [file, setFile] = useState(null);
   const [erroruploading, setErrorUploading] = useState(false);
+
   useEffect(() => {
     if (file) {
       handleUpload(file);
     }
   }, [file]);
+
   const handleUpload = async () => {
     setUploading(true);
     let formData = new FormData();
@@ -132,6 +135,7 @@ const Profile = () => {
       <p className="text-green-700 mt-5">
         {updateSuccess ? "User is updated successfully" : ""}
       </p>
+      <ShowListing />
     </div>
   );
 };
