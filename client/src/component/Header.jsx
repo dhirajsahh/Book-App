@@ -1,13 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logo } from "../utlis/Constant";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const searchRef = useRef();
   const currentUser = useSelector((state) => state.user.currentUser);
+  const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState([]);
+  console.log(listing);
   const [searchTerm, setSearchTerm] = useState("");
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,7 +26,18 @@ const Header = () => {
     if (searchTermfromUrl) {
       setSearchTerm(searchTermfromUrl);
     }
+
+    const fetchlistings = async () => {
+      setLoading(true);
+      const searchQuery = urlParams.toString();
+      const response = await fetch(`/api/listing/get?${searchQuery}`);
+      const json = await response.json();
+      setListing(json);
+      setLoading(false);
+    };
+    fetchlistings();
   }, [location.search]);
+
   return (
     <div>
       <header className="bg-slate-200 shadow-md">
