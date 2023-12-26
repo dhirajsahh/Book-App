@@ -47,6 +47,7 @@ const ShowListing = () => {
       >
         Show Listing
       </button>
+
       <p>{showListingError && "Error showing listing"}</p>
       {showListing && showListing.length > 0 && (
         <div className="flex flex-col gap-4">

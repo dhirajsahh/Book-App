@@ -5,6 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import Contact from "../component/Contact";
 import { FaShare, FaMapMarkerAlt } from "react-icons/fa";
+import Shimmer from "../component/Shimmer";
 const Listing = () => {
   const [contact, setContact] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
@@ -37,7 +38,7 @@ const Listing = () => {
   }, [params.listingId]);
   return (
     <main>
-      {loading && <p className="text-center text-2xl mt-7">Loading...</p>}
+      {loading && <Shimmer />}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong</p>
       )}
@@ -102,7 +103,7 @@ const Listing = () => {
                 onClick={() => setContact(true)}
                 className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-90"
               >
-                Contact Landlord
+                Contact Owner
               </button>
             )}
             {contact && <Contact listing={listing} />}
