@@ -7,7 +7,9 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { connectcloudinary } from "./config/connectCloudinary.js";
 import listingRouter from "./routes/listing.route.js";
+import path from "path";
 dotenv.config();
+const __dirname = path.resolve();
 const port = process.env.PORT;
 const app = express();
 app.use(express.json());
@@ -20,14 +22,18 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-
+app.listen(port, () => {
+  console.log("app is running in port", port);
+});
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
-app.listen(port, () => {
-  console.log("app is running in port", port);
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Eerver Error";
